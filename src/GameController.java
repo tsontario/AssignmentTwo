@@ -31,7 +31,7 @@ public class GameController implements ActionListener {
      * Starts the game
      */
     public void start(){
-// REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
+    	GameView game = new GameView(new GameModel(8), this);
     }
 
  

@@ -1,4 +1,8 @@
+import java.awt.BorderLayout;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 
 /**
@@ -12,7 +16,12 @@ import javax.swing.JFrame;
 public class GameView extends JFrame {
 
  // ADD YOUR INSTANCE VARIABLES HERE
-
+	private JPanel buttons;
+	private JButton resetBtn;
+	private JButton quitBtn;
+	private BoardView boardView;
+	private GameController gameController;
+	private GameModel model;
  
     /**
      * Constructor used for initializing the Frame
@@ -24,8 +33,13 @@ public class GameView extends JFrame {
      */
 
     public GameView(GameModel model, GameController gameController) {
- // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
-
+    	super("--- Dot! The Game! ---");
+    	this.model = model;
+    	this.gameController = gameController;
+    	boardView = getBoardView();
+    	drawFrame();
+    	pack();
+    	setVisible(true);
     }
 
    /**
@@ -35,7 +49,17 @@ public class GameView extends JFrame {
      */
 
     public BoardView getBoardView(){
- // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
-   }
+    	return new BoardView(model, gameController);
+    }
+    
+    private void drawFrame() {
+    	buttons = new JPanel();
+    	resetBtn = new JButton("Reset");
+    	quitBtn = new JButton("Quit");
+    	this.add(boardView, BorderLayout.NORTH);
+    	buttons.add(resetBtn);
+    	buttons.add(quitBtn);
+    	this.add(buttons, BorderLayout.SOUTH);
+    }
 
 }

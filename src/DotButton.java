@@ -22,8 +22,9 @@ public class DotButton extends JButton {
 	private final int SELECTED = 1;
 	private final int DOT = 2;
 	
+	private final ImageIcon[] icons = new ImageIcon[3];
+	
     // ADD YOUR INSTANCE VARIABLES HERE
-	private ImageIcon[] icons;
 	private int row;
 	private int column;
 	private int type;
