@@ -13,8 +13,9 @@ import java.awt.event.ActionListener;
 
 public class GameController implements ActionListener {
 
- // ADD YOUR INSTANCE VARIABLES HERE
-
+	// Data Fields
+	private int size;
+	private GameModel model;
      /**
      * Constructor used for initializing the controller. It creates the game's view 
      * and the game's model instances
@@ -23,7 +24,8 @@ public class GameController implements ActionListener {
      *            the size of the board on which the game will be played
      */
     public GameController(int size) {
-// REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
+    	this.size = size;
+    	model = new GameModel(size);
     }
 
   
