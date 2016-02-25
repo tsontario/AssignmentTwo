@@ -1,9 +1,10 @@
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 
@@ -20,6 +21,7 @@ public class BoardView extends JPanel {
 	private GameModel model;
 	private GameController controller;
 	private JPanel[] buttonRows;
+	private int size;
 
 	/**
      * Constructor used for initializing the board. The action listener for
@@ -33,14 +35,11 @@ public class BoardView extends JPanel {
 
     public BoardView(GameModel gameModel, GameController gameController) {
     	model = gameModel;
+    	size = model.getSize();
     	controller = gameController;
-    	buttonRows = new JPanel[model.getSize()];
-    	setLayout(new GridBagLayout());
+    	buttonRows = new JPanel[size];
+    	setLayout(new GridLayout(size,size,0,0));
     	createButtonRows();
-    	setBackground(Color.ORANGE);
-    	setOpaque(true);
-    	
-    	
     }
 
     private void createButtonRows() {
@@ -48,17 +47,23 @@ public class BoardView extends JPanel {
     	
     	for (int i=0; i<buttonRows.length; i++) {
     		buttonRows[i] = new JPanel(new FlowLayout());
+    		buttonRows[i].setBackground(Color.white);
+    		
+    		// Offsets Row if Row is Odd
+    		if (i%2 == 1) {
+    			buttonRows[i].setBorder(new EmptyBorder(0,40,0,0));
+    		}
+    		
+    		// Populates Button Rows
     		for (int j=0; j<buttonRows.length; j++) {
-    			gbc.gridx = 0;
+    			
     			DotButton btn = new DotButton(i,j, model.getCurrentStatus(i, j));
+    			btn.setBorder(new EmptyBorder(0,0,0,0));
     			buttonRows[i].add(btn);
     		}
-    		if (i%2 == 1) {
-//    			buttonRows[i].setBorder(new EmptyBorder(0,0,0,0));
-    			gbc.gridx = 1;
-    		}
-			gbc.gridy = i;
-    		add(buttonRows[i], gbc);
+    		
+//			gbc.gridy = i;
+    		add(buttonRows[i]);
     	}
     	
     }

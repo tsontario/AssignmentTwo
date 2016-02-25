@@ -37,6 +37,7 @@ public class GameView extends JFrame {
     	super("--- Dot! The Game! ---");
     	this.model = model;
     	this.gameController = gameController;
+    	setDefaultCloseOperation(EXIT_ON_CLOSE);
     	
     	boardView = getBoardView();
     	
