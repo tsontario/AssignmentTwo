@@ -1,61 +1,56 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
 /**
- * The class <b>GameController</b> is the controller of the game. It implements 
- * the interface ActionListener to be called back when the player makes a move. It computes
- * the next step of the game, and then updates model and view.
+ * The class <b>GameController</b> is the controller of the game. It implements
+ * the interface ActionListener to be called back when the player makes a move.
+ * It computes the next step of the game, and then updates model and view.
  *
  * @author Guy-Vincent Jourdan, University of Ottawa
  */
-
 
 public class GameController implements ActionListener {
 
 	// Data Fields
 	private int size;
 	private GameModel model;
-     /**
-     * Constructor used for initializing the controller. It creates the game's view 
-     * and the game's model instances
-     * 
-     * @param size
-     *            the size of the board on which the game will be played
-     */
-    public GameController(int size) {
-    	this.size = size;
-    	model = new GameModel(size);
-    }
 
-  
-    /**
-     * Starts the game
-     */
-    public void start(){
-    	GameView game = new GameView(new GameModel(8), this);
-    }
+	/**
+	 * Constructor used for initializing the controller. It creates the game's
+	 * view and the game's model instances
+	 * 
+	 * @param size
+	 *            the size of the board on which the game will be played
+	 */
+	public GameController(int size) {
+		this.size = size;
+		model = new GameModel(size);
+	}
 
- 
-    /**
-     * resets the game
-     */
-    public void reset(){
-// REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
-    }
+	/**
+	 * Starts the game
+	 */
+	public void start() {
+		GameView game = new GameView(new GameModel(size), this);
+	}
 
-    /**
-     * Callback used when the user clicks a button or one of the dots. 
-     * Implements the logic of the game
-     *
-     * @param e
-     *            the ActionEvent
-     */
+	/**
+	 * resets the game
+	 */
+	public void reset() {
+		// REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
+	}
 
-    public void actionPerformed(ActionEvent e) {
-        
- // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
-    }
+	/**
+	 * Callback used when the user clicks a button or one of the dots.
+	 * Implements the logic of the game
+	 *
+	 * @param e
+	 *            the ActionEvent
+	 */
 
- 
+	public void actionPerformed(ActionEvent e) {
+		
+	}
+
 }

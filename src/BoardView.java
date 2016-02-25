@@ -10,7 +10,9 @@ import javax.swing.JPanel;
  */
 public class BoardView extends JPanel {
 
-     // ADD YOUR INSTANCE VARIABLES HERE
+     // Data Fields
+	private GameModel model;
+	private GameController controller;
 
 
 	/**
@@ -24,7 +26,8 @@ public class BoardView extends JPanel {
      */
 
     public BoardView(GameModel gameModel, GameController gameController) {
-// REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
+    	model = gameModel;
+    	controller = gameController;
     }
 
  	/**
@@ -32,7 +35,7 @@ public class BoardView extends JPanel {
 	 */
 
     public void update(){
-  // REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
+
 	}
 
 }
