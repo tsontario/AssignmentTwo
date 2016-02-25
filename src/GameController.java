@@ -24,21 +24,20 @@ public class GameController implements ActionListener {
 	 */
 	public GameController(int size) {
 		this.size = size;
-		model = new GameModel(size);
 	}
 
 	/**
 	 * Starts the game
 	 */
 	public void start() {
-		GameView game = new GameView(new GameModel(size), this);
+		model = new GameModel(size);
+		GameView game = new GameView(model, this);
 	}
 
 	/**
 	 * resets the game
 	 */
 	public void reset() {
-		// REPLACE THE BODY OF THIS METHOD WITH YOUR OWN IMPLEMENTATION
 	}
 
 	/**

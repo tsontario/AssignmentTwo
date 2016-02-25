@@ -22,12 +22,13 @@ public class DotButton extends JButton {
 	private final int SELECTED = 1;
 	private final int DOT = 2;
 	
-	private final ImageIcon[] icons = new ImageIcon[3];
+	private static final ImageIcon[] icons = new ImageIcon[3];
 	
     // ADD YOUR INSTANCE VARIABLES HERE
 	private int row;
 	private int column;
 	private int type;
+	private boolean selected;
 
     /**
      * Constructor used for initializing a cell of a specified type.
@@ -44,10 +45,26 @@ public class DotButton extends JButton {
     	this.row = row;
     	this.column = column;
     	this.type = type;
+    	selected = false;
+    	setIcon(getImageIcon());
     }
 
 
+    private void setIcon() {
+    	
+    }
 
+    private ImageIcon getImageIcon() {
+    	if (icons[type] == null) {
+    		String imgPostFix = Integer.toString(type);
+    		icons[type] = new ImageIcon("data/ball-" + type + ".png");
+    	}
+    	return icons[type];
+    }
+    
+    private void setSelected() {
+    	selected = true;
+    }
     /**
      * Changes the cell type of this cell. The image is updated accordingly.
      * 

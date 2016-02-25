@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -36,7 +37,9 @@ public class GameView extends JFrame {
     	super("--- Dot! The Game! ---");
     	this.model = model;
     	this.gameController = gameController;
+    	
     	boardView = getBoardView();
+    	
     	drawFrame();
     	pack();
     	setVisible(true);
@@ -53,10 +56,12 @@ public class GameView extends JFrame {
     }
     
     private void drawFrame() {
+    	
+    	
     	buttons = new JPanel();
     	resetBtn = new JButton("Reset");
     	quitBtn = new JButton("Quit");
-    	this.add(boardView, BorderLayout.NORTH);
+    	this.add(boardView, BorderLayout.CENTER);
     	buttons.add(resetBtn);
     	buttons.add(quitBtn);
     	this.add(buttons, BorderLayout.SOUTH);
