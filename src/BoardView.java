@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
@@ -38,12 +39,11 @@ public class BoardView extends JPanel {
     	size = model.getSize();
     	controller = gameController;
     	buttonRows = new JPanel[size];
-    	setLayout(new GridLayout(size,size,0,0));
+    	setLayout(new GridLayout(size,1));  // Each row of buttons is only one JPanel
     	createButtonRows();
     }
 
     private void createButtonRows() {
-    	GridBagConstraints gbc = new GridBagConstraints();
     	
     	for (int i=0; i<buttonRows.length; i++) {
     		buttonRows[i] = new JPanel(new FlowLayout());
@@ -62,7 +62,6 @@ public class BoardView extends JPanel {
     			buttonRows[i].add(btn);
     		}
     		
-//			gbc.gridy = i;
     		add(buttonRows[i]);
     	}
     	
