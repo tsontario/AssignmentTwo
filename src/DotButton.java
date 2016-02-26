@@ -52,8 +52,8 @@ public class DotButton extends JButton {
 
     // TODO Why does the code work when setIcon() is empty? What is Java doing behind the scenses
     // with call to getImageIcon()?
-    private void setIcon() {
-    	
+    public void setIcon() {
+    	setIcon(icons[type]);
     }
 
     // Populates icons[] with Button Images
@@ -98,5 +98,9 @@ public class DotButton extends JButton {
 
     public int getColumn() {
     	return column;
+    }
+    
+    public void update() {
+    	setIcon();
     }
 }

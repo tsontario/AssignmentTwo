@@ -1,5 +1,5 @@
 import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -43,6 +43,7 @@ public class GameView extends JFrame {
     	
     	drawFrame();
     	pack();
+    	setResizable(false);
     	setVisible(true);
     }
 
@@ -62,10 +63,17 @@ public class GameView extends JFrame {
     	buttons = new JPanel();
     	resetBtn = new JButton("Reset");
     	quitBtn = new JButton("Quit");
-    	this.add(boardView, BorderLayout.CENTER);
+    	
+    	resetBtn.addActionListener(gameController);
+    	quitBtn.addActionListener(gameController);
+    	
     	buttons.add(resetBtn);
     	buttons.add(quitBtn);
     	this.add(buttons, BorderLayout.SOUTH);
+    	this.add(boardView, BorderLayout.CENTER);
     }
 
+    public void update() {
+    	boardView.update();
+    }
 }

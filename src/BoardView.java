@@ -1,11 +1,9 @@
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 
@@ -22,6 +20,7 @@ public class BoardView extends JPanel {
 	private GameModel model;
 	private GameController controller;
 	private JPanel[] buttonRows;
+	private DotButton[][] dotButtons;
 	private int size;
 
 	/**
@@ -39,6 +38,7 @@ public class BoardView extends JPanel {
     	size = model.getSize();
     	controller = gameController;
     	buttonRows = new JPanel[size];
+    	dotButtons = new DotButton[size][size];
     	setLayout(new GridLayout(size,1));  // Each row of buttons is only one JPanel
     	createButtonRows();
     }
@@ -51,7 +51,7 @@ public class BoardView extends JPanel {
     		
     		// Offsets Row if Row is Odd
     		if (i%2 == 1) {
-    			buttonRows[i].setBorder(new EmptyBorder(0,40,0,0));
+    			buttonRows[i].setBorder(new EmptyBorder(0,45,0,0));
     		}
     		
     		// Populates Button Rows
@@ -59,7 +59,11 @@ public class BoardView extends JPanel {
     			
     			DotButton btn = new DotButton(i,j, model.getCurrentStatus(i, j));
     			btn.setBorder(new EmptyBorder(0,0,0,0));
+    			
+    			btn.addActionListener(controller);
     			buttonRows[i].add(btn);
+    			
+    			dotButtons[i][j] = btn;
     		}
     		
     		add(buttonRows[i]);
@@ -72,8 +76,18 @@ public class BoardView extends JPanel {
 	 * update the status of the board's DotButton instances based on the current game model
 	 */
 
-    public void update(){
-
-	}
-
+    public void update() {
+    	for (int i=0; i<size; i++) {
+    		
+    		// Get all components of each JPanel row of buttons
+    		Component[] components = buttonRows[i].getComponents();
+    		
+    		// Get each button, update its status with the model, reset its icon.
+    		for (int j=0; j<size; j++) {
+    			DotButton dotBtn = (DotButton) components[j];
+    			dotBtn.setType(model.getCurrentStatus(i, j));
+    			dotBtn.update();
+    		}
+    	}	
+    }
 }

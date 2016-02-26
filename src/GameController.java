@@ -1,6 +1,8 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+
 /**
  * The class <b>GameController</b> is the controller of the game. It implements
  * the interface ActionListener to be called back when the player makes a move.
@@ -14,6 +16,7 @@ public class GameController implements ActionListener {
 	// Data Fields
 	private int size;
 	private GameModel model;
+	private GameView game;
 
 	/**
 	 * Constructor used for initializing the controller. It creates the game's
@@ -31,13 +34,15 @@ public class GameController implements ActionListener {
 	 */
 	public void start() {
 		model = new GameModel(size);
-		GameView game = new GameView(model, this);
+		game = new GameView(model, this);
 	}
 
 	/**
 	 * resets the game
 	 */
 	public void reset() {
+		model.reset();
+		game.update();
 	}
 
 	/**
@@ -49,7 +54,19 @@ public class GameController implements ActionListener {
 	 */
 
 	public void actionPerformed(ActionEvent e) {
-		
+		if (e.getSource() instanceof DotButton) {
+			DotButton dotBtn = (DotButton) e.getSource();
+			System.out.println(dotBtn.getRow());
+		}
+		else if (e.getSource() instanceof JButton) {
+			JButton menuBtn = (JButton) e.getSource();
+			if (menuBtn.getText().equals("Reset")) {
+				reset();
+			}
+			else if (menuBtn.getText().equals("Quit")) {
+				System.exit(0);
+			}
+		}
 	}
 
 }

@@ -41,7 +41,6 @@ public class GameModel {
 	public GameModel(int size) {
 		// Initialize variables
 		rand = new Random();
-		numSteps = 0;
 		GameModel.size = size;
 		board = new int[size][size];
 		
@@ -57,6 +56,8 @@ public class GameModel {
 	 * 1/INITIAL_PROBA). The number of steps is reset.
 	 */
 	public void reset() {
+		numSteps = 0;
+		
 		// Set Blue Dot
 		int randX;
 		int randY;
@@ -82,6 +83,8 @@ public class GameModel {
 				}
 			}
 		}
+		
+		
 	}
 
 	/**
@@ -155,9 +158,5 @@ public class GameModel {
 	 */
 	public int getNumberOfSteps() {
 		return numSteps;
-	}
-
-	public static void main(String[] args) {
-		GameModel model = new GameModel(8);
 	}
 }
