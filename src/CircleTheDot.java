@@ -17,7 +17,7 @@ public class CircleTheDot {
      *            command line parameters
      */
      public static void main(String[] args) {
-        int size = 9;
+        int size = 10;
         if (args.length == 1) {
             try{
                 size = Integer.parseInt(args[0]);

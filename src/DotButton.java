@@ -18,13 +18,14 @@ import javax.swing.JButton;
 
 public class DotButton extends JButton {
 
+	// Constants and Class Properties
 	private final int AVAILABLE = 0;
 	private final int SELECTED = 1;
 	private final int DOT = 2;
 	
 	private static final ImageIcon[] icons = new ImageIcon[3];
 	
-    // ADD YOUR INSTANCE VARIABLES HERE
+    // Data Fields
 	private int row;
 	private int column;
 	private int type;
@@ -50,23 +51,20 @@ public class DotButton extends JButton {
     }
 
 
-    // TODO Why does the code work when setIcon() is empty? What is Java doing behind the scenses
-    // with call to getImageIcon()?
-    public void setIcon() {
+    private void setIcon() {
     	setIcon(icons[type]);
     }
 
     // Populates icons[] with Button Images
     private ImageIcon getImageIcon() {
     	if (icons[type] == null) {
-    		String imgPostFix = Integer.toString(type);
     		icons[type] = new ImageIcon("data/ball-" + type + ".png");
     	}
     	return icons[type];
     }
     
-    private void setSelected() {
-    	selected = true;
+    public void setSelected(boolean b) {
+    	selected = b;
     }
     /**
      * Changes the cell type of this cell. The image is updated accordingly.
@@ -75,6 +73,14 @@ public class DotButton extends JButton {
      *            the type to set
      */
 
+    public boolean isSelected() {
+    	return selected;
+    }
+    
+    public int getType() {
+    	return type;
+    }
+    
     public void setType(int type) {
     	this.type = type;
     }

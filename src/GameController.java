@@ -1,5 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
+import java.util.Random;
 
 import javax.swing.JButton;
 
@@ -16,7 +18,7 @@ public class GameController implements ActionListener {
 	// Data Fields
 	private int size;
 	private GameModel model;
-	private GameView game;
+	private GameView view;
 
 	/**
 	 * Constructor used for initializing the controller. It creates the game's
@@ -34,7 +36,7 @@ public class GameController implements ActionListener {
 	 */
 	public void start() {
 		model = new GameModel(size);
-		game = new GameView(model, this);
+		view = new GameView(model, this);
 	}
 
 	/**
@@ -42,7 +44,7 @@ public class GameController implements ActionListener {
 	 */
 	public void reset() {
 		model.reset();
-		game.update();
+		view.update();
 	}
 
 	/**
@@ -56,17 +58,49 @@ public class GameController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() instanceof DotButton) {
 			DotButton dotBtn = (DotButton) e.getSource();
-			System.out.println(dotBtn.getRow());
-		}
-		else if (e.getSource() instanceof JButton) {
+			if (dotBtn.getType() == 0) {
+				dotBtn.setType(1);
+				model.select(dotBtn.getRow(), dotBtn.getColumn());
+				checkConditions();
+				view.update();
+				
+			}
+			
+		} else if (e.getSource() instanceof JButton) {
 			JButton menuBtn = (JButton) e.getSource();
 			if (menuBtn.getText().equals("Reset")) {
 				reset();
-			}
-			else if (menuBtn.getText().equals("Quit")) {
+			} else if (menuBtn.getText().equals("Quit")) {
 				System.exit(0);
 			}
 		}
 	}
+	
+	public void checkConditions() {
+		if (isEncircled()) {
+			// WIN GAME
+		}
+		else if (dotEscaped()) {
+			// LOSE GAME
+		}
+		else {
+			moveDot();
+		}
+	}
 
+	public boolean isEncircled() {
+		return false;
+	}
+	
+	public boolean dotEscaped() {
+		return false;
+	}
+	
+	public void moveDot() {
+		Point blueDot = model.getCurrentDot();
+		Random r = new Random();
+		
+		LinkedList<Point> queue = new LinkedList<Point>();
+		
+	}
 }

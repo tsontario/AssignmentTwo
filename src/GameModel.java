@@ -2,7 +2,7 @@ import java.util.Random;
 
 /**
  * The class <b>GameModel</b> holds the model, the state of the systems. It
- * stores the followiung information: - the current location of the blue dot -
+ * stores the following information: - the current location of the blue dot -
  * the state of all the dots on the board (available, selected or occupied by
  * the blue dot - the size of the board - the number of steps since the last
  * reset
@@ -43,10 +43,10 @@ public class GameModel {
 		rand = new Random();
 		GameModel.size = size;
 		board = new int[size][size];
-		
+
 		// Position Dots
 		reset();
-		
+
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class GameModel {
 	 */
 	public void reset() {
 		numSteps = 0;
-		
+
 		// Set Blue Dot
 		int randX;
 		int randY;
@@ -74,17 +74,15 @@ public class GameModel {
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				if (board[i][j] != DOT) {
-					if (rand.nextDouble() < 1/PROBABILITY) {
+					if (rand.nextDouble() < 1 / PROBABILITY) {
 						board[i][j] = SELECTED;
-					}
-					else {
+					} else {
 						board[i][j] = AVAILABLE;
 					}
 				}
 			}
 		}
-		
-		
+
 	}
 
 	/**
@@ -145,7 +143,7 @@ public class GameModel {
 	/**
 	 * Getter method for the current blue dot
 	 * 
-	 * @return the location of the curent blue dot
+	 * @return the location of the current blue dot
 	 */
 	public Point getCurrentDot() {
 		return dotPosition;
