@@ -51,7 +51,6 @@ public class BoardView extends JPanel {
 		for (int i = 0; i < buttonRows.length; i++) {
 			buttonRows[i] = new JPanel(new FlowLayout());
 			buttonRows[i].setBackground(Color.white);
-			buttonRows[i].setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.RED));
 
 			// Offsets Row if Row is Odd
 			if (i % 2 == 1) {
@@ -63,7 +62,6 @@ public class BoardView extends JPanel {
 
 				DotButton btn = new DotButton(i, j, model.getCurrentStatus(i, j));
 				btn.setBorder(new EmptyBorder(0, 0, 0, 0));
-				btn.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.RED));
 				btn.addActionListener(controller);
 				buttonRows[i].add(btn);
 

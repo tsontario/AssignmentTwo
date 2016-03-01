@@ -1,6 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -15,6 +16,8 @@ import javax.swing.JButton;
  */
 
 public class GameController implements ActionListener {
+
+	private final Point FAIL = new Point(-1, -1);
 
 	// Data Fields
 	private int size;
@@ -134,88 +137,72 @@ public class GameController implements ActionListener {
 	public void moveDot() {
 		Point blueDot = model.getCurrentDot();
 		// shortestPath(blueDot, targets, blocked);
-		Random r = new Random();
-		if (blueDot.getX() % 2 == 0) {
-			switch (r.nextInt(6)) {
-			case 0:
-				model.setCurrentDot(blueDot.getX() + 1, blueDot.getY());
-				break;
-			case 1:
-				model.setCurrentDot(blueDot.getX() + 1, blueDot.getY() - 1);
-				break;
-			case 2:
-				model.setCurrentDot(blueDot.getX(), blueDot.getY() + 1);
-				break;
-			case 3:
-				model.setCurrentDot(blueDot.getX(), blueDot.getY() - 1);
-				break;
-			case 4:
-				model.setCurrentDot(blueDot.getX() - 1, blueDot.getY() - 1);
-				break;
-			case 5:
-				model.setCurrentDot(blueDot.getX() - 1, blueDot.getY());
-				break;
-			}
+
+		Point next = shortestPath(blueDot, targets, blocked);
+
+		if (next == FAIL) {			
+			System.out.println("next is FAIL");
+		} else {
+			model.setCurrentDot(next.getX(), next.getY());
 		}
-		else {
-			switch (r.nextInt(6)) {
-			case 0:
-				model.setCurrentDot(blueDot.getX() + 1, blueDot.getY());
-				break;
-			case 1:
-				model.setCurrentDot(blueDot.getX() + 1, blueDot.getY() + 1);
-				break;
-			case 2:
-				model.setCurrentDot(blueDot.getX(), blueDot.getY() - 1);
-				break;
-			case 3:
-				model.setCurrentDot(blueDot.getX(), blueDot.getY() + 1);
-				break;
-			case 4:
-				model.setCurrentDot(blueDot.getX() - 1, blueDot.getY() + 1);
-				break;
-			case 5:
-				model.setCurrentDot(blueDot.getX() - 1, blueDot.getY());
-				break;
-			}
-		}
+
 	}
 
-	private void shortestPath(Point start, Point[] targets, ArrayList<Point> blocked) {
-		LinkedList<Point> queue = new LinkedList<Point>();
-
-		queue.addLast(start);
+	private Point shortestPath(Point start, Point[] targets, ArrayList<Point> blocked) {
+		LinkedList<Point[]> queue = new LinkedList<Point[]>();
+		setBlockedList();
+		queue.addLast(new Point[] { start });
 
 		while (!queue.isEmpty()) {
-			Point c = queue.removeFirst();
+			
+			Point[] path = queue.removeFirst();
+
+			Point c = path[path.length - 1];
+			blocked.add(c);
+			
 			Point[] neighbours = getNeighbours(c);
 			for (Point p : neighbours) {
-				if (blocked.indexOf(p) == -1) {
-
+				if (blocked.indexOf(p) == -1 && p != null) {
+					if (p.in(targets)) {
+						Point[] newPath = Arrays.copyOf(path, path.length + 1);
+						newPath[path.length - 1] = p;
+						return p;
+					} else {
+						blocked.add(p);
+						Point[] newPath = Arrays.copyOf(path, path.length + 1);
+						newPath[path.length - 1] = p;
+						queue.addLast(newPath);
+					}
 				}
+
 			}
+			
 		}
+		return FAIL;
+
 	}
 
 	private Point[] getNeighbours(Point c) {
-
 		Point[] neighbours = new Point[6];
-		if (c.getX() % 2 == 0) {
-			neighbours[0] = new Point(c.getX(), c.getY() + 1);
-			neighbours[1] = new Point(c.getX(), c.getY() - 1);
-			neighbours[2] = new Point(c.getX() + 1, c.getY());
-			neighbours[3] = new Point(c.getX() + 1, c.getY() - 1);
-			neighbours[4] = new Point(c.getX() - 1, c.getY());
-			neighbours[5] = new Point(c.getX() - 1, c.getY() - 1);
-		} else if (c.getX() % 2 == 1) {
-			neighbours[0] = new Point(c.getX(), c.getY() + 1);
-			neighbours[1] = new Point(c.getX(), c.getY() - 1);
-			neighbours[2] = new Point(c.getX() + 1, c.getY());
-			neighbours[3] = new Point(c.getX() + 1, c.getY() + 1);
-			neighbours[4] = new Point(c.getX() - 1, c.getY());
-			neighbours[5] = new Point(c.getX() - 1, c.getY() + 1);
+		if (c != null) {
+			
+			if (c.getX() % 2 == 0) {
+				neighbours[0] = new Point(c.getX(), c.getY() + 1);
+				neighbours[1] = new Point(c.getX(), c.getY() - 1);
+				neighbours[2] = new Point(c.getX() + 1, c.getY());
+				neighbours[3] = new Point(c.getX() + 1, c.getY() - 1);
+				neighbours[4] = new Point(c.getX() - 1, c.getY());
+				neighbours[5] = new Point(c.getX() - 1, c.getY() - 1);
+			} else if (c.getX() % 2 == 1) {
+				neighbours[0] = new Point(c.getX(), c.getY() + 1);
+				neighbours[1] = new Point(c.getX(), c.getY() - 1);
+				neighbours[2] = new Point(c.getX() + 1, c.getY());
+				neighbours[3] = new Point(c.getX() + 1, c.getY() + 1);
+				neighbours[4] = new Point(c.getX() - 1, c.getY());
+				neighbours[5] = new Point(c.getX() - 1, c.getY() + 1);
+			}
 		}
-		return new Point[0];
+		return neighbours;
 	}
 
 	private void setBlockedList() {

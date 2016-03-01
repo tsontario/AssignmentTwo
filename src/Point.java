@@ -56,8 +56,24 @@ public class Point {
 		this.y = y;
 	}
 
+	public boolean in(Point[] arr) {
+		for (int i=0; i<arr.length; i++) {
+			if (this.getX() == arr[i].getX() && this.getY() == arr[i].getY()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		return String.format("%d, %d", getX(), getY());
+	}
+	
+	public boolean equals(Point other) {
+		if (this.getX() == other.getX() && this.getY() == other.getY()) {
+			return true;
+		}
+		return false;
 	}
 }
