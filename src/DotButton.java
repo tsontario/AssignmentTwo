@@ -1,5 +1,9 @@
+import java.awt.Color;
+
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.border.BevelBorder;
 
 
 /**
@@ -48,6 +52,8 @@ public class DotButton extends JButton {
     	this.type = type;
     	selected = false;
     	setIcon(getImageIcon());
+    	
+
     }
 
 
