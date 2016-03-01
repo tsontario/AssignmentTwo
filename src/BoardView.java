@@ -41,6 +41,7 @@ public class BoardView extends JPanel {
 		setLayout(new GridLayout(size, 1)); // Each row of buttons is only one
 											// JPanel
 		createButtonRows();
+		
 	}
 
 	private void createButtonRows() {

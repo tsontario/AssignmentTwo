@@ -19,6 +19,9 @@ public class GameController implements ActionListener {
 	private int size;
 	private GameModel model;
 	private GameView view;
+	
+	// Breadth-First-Search Data
+	private Point[] targets;  // The perimeter of the board
 
 	/**
 	 * Constructor used for initializing the controller. It creates the game's
@@ -29,14 +32,17 @@ public class GameController implements ActionListener {
 	 */
 	public GameController(int size) {
 		this.size = size;
+		model = new GameModel(size);
+		model.reset();
+		view = new GameView(model, this);
+		targets = createTargetPoints();
 	}
 
 	/**
 	 * Starts the game
 	 */
 	public void start() {
-		model = new GameModel(size);
-		view = new GameView(model, this);
+		view.update();
 	}
 
 	/**
@@ -61,7 +67,10 @@ public class GameController implements ActionListener {
 			if (dotBtn.getType() == 0) {
 				dotBtn.setType(1);
 				model.select(dotBtn.getRow(), dotBtn.getColumn());
-				checkConditions();
+				
+				System.out.println(String.format("(%d, %d)", dotBtn.getRow(), dotBtn.getColumn()));
+//				System.out.println(model.getCurrentDot());   // DEBUG BOARD POSITIONS
+				moveDot();
 				view.update();
 				
 			}
@@ -76,31 +85,40 @@ public class GameController implements ActionListener {
 		}
 	}
 	
-	public void checkConditions() {
-		if (isEncircled()) {
-			// WIN GAME
-		}
-		else if (dotEscaped()) {
-			// LOSE GAME
-		}
-		else {
-			moveDot();
-		}
-	}
-
-	public boolean isEncircled() {
-		return false;
-	}
-	
-	public boolean dotEscaped() {
-		return false;
-	}
 	
 	public void moveDot() {
 		Point blueDot = model.getCurrentDot();
 		Random r = new Random();
+	}
+	
+	private Point[] createTargetPoints() {
+		Point[] perimeter = new Point[(size-1)*4];  // Number of points on perimeter of board of any given size
+		int index = 0; 								// Helper value to keep track of array
 		
-		LinkedList<Point> queue = new LinkedList<Point>();
+		// Generate array of all border Points.
+		for (int i=0; i<size; i++) {
+			perimeter[index] = new Point(0, index);
+			index++;
+		}
+		for (int i=0; i<size; i++) {
+			perimeter[index] = new Point(size-1, i);
+			index++;
+		}
 		
+		for (int i=1; i<size-1; i++) {
+			perimeter[index] = new Point(i, 0);
+			index++;
+		}
+		
+		for (int i=1; i<size-1; i++) {
+			perimeter[index] = new Point(i, size-1);
+			index++;
+		}
+		
+		// DEBUG
+//		for (int i=0; i<perimeter.length; i++) {
+//			System.out.println(perimeter[i]);
+//		}
+		return perimeter;
 	}
 }

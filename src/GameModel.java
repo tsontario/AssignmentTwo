@@ -43,10 +43,6 @@ public class GameModel {
 		rand = new Random();
 		GameModel.size = size;
 		board = new int[size][size];
-
-		// Position Dots
-		reset();
-
 	}
 
 	/**
@@ -157,4 +153,5 @@ public class GameModel {
 	public int getNumberOfSteps() {
 		return numSteps;
 	}
+	
 }
