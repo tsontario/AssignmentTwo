@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 /**
  * The class <b>Point</b> is a simple helper class that stares a 2 dimensional
@@ -56,6 +57,15 @@ public class Point {
 		this.y = y;
 	}
 
+	public boolean notIn(ArrayList<Point> arr) {
+		for (int i=0; i<arr.size(); i++) {
+			if (this.getX() == arr.get(i).getX() && this.getY() == arr.get(i).getY()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public boolean in(Point[] arr) {
 		for (int i=0; i<arr.length; i++) {
 			if (this.getX() == arr[i].getX() && this.getY() == arr[i].getY()) {
@@ -69,7 +79,7 @@ public class Point {
 	public String toString() {
 		return String.format("%d, %d", getX(), getY());
 	}
-	
+
 	public boolean equals(Point other) {
 		if (this.getX() == other.getX() && this.getY() == other.getY()) {
 			return true;

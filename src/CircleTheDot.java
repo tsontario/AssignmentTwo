@@ -17,12 +17,12 @@ public class CircleTheDot {
      *            command line parameters
      */
      public static void main(String[] args) {
-        int size = 9;
+        int size = 13;
         if (args.length == 1) {
             try{
                 size = Integer.parseInt(args[0]);
                 if(size<4){
-                    System.out.println("Invalide argument, using default...");
+                    System.out.println("Invalid argument, using default...");
                     size = 9;
                 }
             } catch(NumberFormatException e){
